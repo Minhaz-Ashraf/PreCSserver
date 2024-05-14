@@ -9,7 +9,11 @@ const userRoutes = require('./UserRoute');
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT || 8000;
-
+const corsOptions = {
+  origin: 'https://connectingsoulmate.com', // Whitelist your allowed origin
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 async function connectToMongoDB() {
     try {
       await mongoose.connect(process.env.MONGODB_URI);
@@ -33,7 +37,7 @@ async function connectToMongoDB() {
   
 async function startServer() {
     
-    app.use(cors());
+    app.use(cors(corsOptions));
     app.use(bodyParser.json());
     app.use('/api/user', userRoutes);
 
