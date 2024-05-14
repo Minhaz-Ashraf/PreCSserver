@@ -1,4 +1,4 @@
-const User = require('./user');
+const User = require('../models/user');
 
 exports.register = async (req, res) => {
     const { fullname, email, phone } = req.body;
